@@ -1,20 +1,20 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Home, Login, Register } from '../../pages'
 
 const Routes = () => {
     return (
         <Router>
             <Switch>
-                <Routes path="/register">
+                <Route path="/register">
                     <Register />
-                </Routes>
-                <Routes path="/login">
+                </Route>
+                <Route path="/login">
                     <Login />
-                </Routes>
-                <Routes path="/">
+                </Route>
+                <Route path="/">
                     <Home />
-                </Routes>
+                </Route>
             </Switch>
         </Router>
     )
