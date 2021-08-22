@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { BlogItem, Button, Gap } from '../../components';
 import './home.scss';
 import { useHistory } from 'react-router-dom';
@@ -6,18 +6,14 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Home = () => {
-    // const [dataBlogs, setDataBlog] = useState([]);
-
-    const {dataBlog} = useSelector(state => state);
+    const {dataBlog} = useSelector(state => state.homeReducer);
     const dispatch = useDispatch();
-    // console.log('state global >> ', stateGlobal)
     
     useEffect(() => {
-        axios.get('http://localhost:4000/v1/blog/posts?page=2')
+        axios.get('http://localhost:4000/v1/blog/posts?page=1')
         .then(result => {
             console.log('data API', result.data);
             const responseApi = result.data;
-            // setDataBlog(responseApi.data);
 
             dispatch({type: 'UPDATE_DATA_BLOG', payload: responseApi.data});
         })

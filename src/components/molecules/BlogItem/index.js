@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { RegisterBG } from '../../../assets';
+// import { RegisterBG } from '../../../assets';
 import { Button, Gap } from '../../atoms';
 import './blogItem.scss'
 
