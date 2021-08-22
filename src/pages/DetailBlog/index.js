@@ -1,20 +1,33 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { LoginBG } from '../../assets';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useHistory, withRouter } from 'react-router-dom';
 import { Link } from '../../components';
 import './detailBlog.scss';
 
-const DetailBlog = () => {
+const DetailBlog = (props) => {
+    const [data, setData] = useState({});
+    useEffect(() => {
+
+        const id = props.match.params.id;
+        axios.get(`http://localhost:4000/v1/blog/post/${id}`)
+        .then(res => {
+            setData(res.data.data);
+        })
+        .catch(err => console.log('err >> ', err))
+    }, [props])
     const history = useHistory();
-    return (
-        <div className="detail-blog-wrapper">
-            <img className="img-cover" src={LoginBG} alt="thumb" />
-            <p className="blog-title">Title Blog</p>
-            <p className="blog-author">Author - Date post</p>
-            <p className="blog-body">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto delectus voluptate velit ad perferendis porro, impedit sit iste ipsum molestiae at ullam quo? Nam dolores eveniet aperiam assumenda nobis laboriosam.</p>
-            <Link title="Kembali ke Homepage" onClick={() => history.push('/')} />
-        </div>
-    )
+    if(data.author) {
+        return (
+            <div className="detail-blog-wrapper">
+                <img className="img-cover" src={`http://localhost:4000/${data.image}`} alt="thumb" />
+                <p className="blog-title">{data.title}</p>
+                <p className="blog-author">{data.author.name} - {data.createdAt}</p>
+                <p className="blog-body">{data.body}</p>
+                <Link title="Kembali ke Homepage" onClick={() => history.push('/')} />
+            </div>
+        )
+    }
+    return <p>Loading data...</p>
 }
 
-export default DetailBlog
+export default withRouter(DetailBlog);
