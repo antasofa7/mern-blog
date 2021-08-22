@@ -5,6 +5,13 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
+    if(action.type === 'UPDATE_DATA_BLOG') {
+        return {
+            ...state,
+            dataBlog: action.payload
+        }
+    }
+
     return state;
 }
 

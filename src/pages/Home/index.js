@@ -3,20 +3,23 @@ import { BlogItem, Button, Gap } from '../../components';
 import './home.scss';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Home = () => {
-    const [dataBlog, setDataBlog] = useState([]);
+    // const [dataBlogs, setDataBlog] = useState([]);
 
-    const stateGlobal = useSelector(state => state);
-    console.log('state global >> ', stateGlobal)
+    const {dataBlog} = useSelector(state => state);
+    const dispatch = useDispatch();
+    // console.log('state global >> ', stateGlobal)
     
     useEffect(() => {
         axios.get('http://localhost:4000/v1/blog/posts?page=2')
         .then(result => {
             console.log('data API', result.data);
             const responseApi = result.data;
-            setDataBlog(responseApi.data);
+            // setDataBlog(responseApi.data);
+
+            dispatch({type: 'UPDATE_DATA_BLOG', payload: responseApi.data});
         })
         .catch(err => console.log('err >>', err))
     }, [])
