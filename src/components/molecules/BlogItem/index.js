@@ -6,7 +6,8 @@ import './blogItem.scss'
 
 const BlogItem = (props) => {
     const history = useHistory();
-    const { image, title, name, date, body, _id } = props;
+    const { image, title, name, date, body, onDelete, _id } = props;
+    console.log(_id)
     return (
         <div className="blog-item">
             <img className="image-thumb" src={image} alt="post" />
@@ -14,7 +15,7 @@ const BlogItem = (props) => {
                 <div className="title-wrapper">
                     <p className="title">{title}</p>
                     <div className="edit-wrapper">
-                        <p className="edit" onClick={() => history.push(`/create-blog/${_id}`)}>edit</p> | <p className="delete">delete</p>
+                        <p className="edit" onClick={() => history.push(`/create-blog/${_id}`)}>Edit</p> | <p className="delete" onClick={() => onDelete(_id)}>Delete</p>
                     </div>
                 </div>
                 <p className="author">{name} - {date}</p>
